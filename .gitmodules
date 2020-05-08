@@ -1,6 +1,6 @@
 [submodule "make-utils"]
 	path = make-utils
-	url = https://github.com/wichtounet/make-utils.git
+	url = https://github.com/yaeltatjana/make-utils.git
 	branch = master
 [submodule "etl"]
 	path = etl
