@@ -338,8 +338,8 @@ $(eval $(call add_executable_set,dll_perf_conv,dll_perf_conv))
 $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
 
 # Create shared library for Cython wrapper
-$(eval $(call compile_for_shared_library,python-wrapper))
-$(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper/mnist_lib.cpp))
+$(eval $(call compile_for_shared_library,python-wrapper-lib))
+$(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper-lib/mnist_lib.cpp))
 create_shared_library: release/lib/lib_dll_mnist_mylib.so
 
 # Build sets for workbench sources
