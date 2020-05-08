@@ -7,8 +7,7 @@ include make-utils/cpp-utils.mk
 
 # Use C++17
 $(eval $(call use_cpp17))
-
-CXX_FLAGS += -pedantic -Werror -ftemplate-backtrace-limit=0
+CXX_FLAGS += -pedantic -ftemplate-backtrace-limit=0
 
 # If asked, use libcxx (optional)
 ifneq (,$(DLL_LIBCXX))
@@ -330,11 +329,18 @@ $(eval $(call add_executable,dll_mnist_rnn,examples/src/mnist_rnn.cpp))
 $(eval $(call add_executable_set,dll_mnist_rnn,dll_mnist_rnn))
 $(eval $(call add_executable,dll_mnist_lstm,examples/src/mnist_lstm.cpp))
 $(eval $(call add_executable_set,dll_mnist_lstm,dll_mnist_lstm))
+$(eval $(call add_executable,dll_mnist_simple_example,examples/src/mnist_simple_example.cpp))
+$(eval $(call add_executable_set,dll_mnist_simple_example,dll_mnist_simple_example))
 
 $(eval $(call add_executable_set,dll_perf_paper,dll_perf_paper))
 $(eval $(call add_executable_set,dll_perf_paper_conv,dll_perf_paper_conv))
 $(eval $(call add_executable_set,dll_perf_conv,dll_perf_conv))
 $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
+
+# Create shared library for Cython wrapper
+$(eval $(call compile_for_shared_library,python-wrapper))
+$(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper/mnist_lib.cpp))
+create_shared_library: release/lib/lib_dll_mnist_mylib.so
 
 # Build sets for workbench sources
 debug_workbench: debug/bin/dll_sgd_perf debug/bin/dll_conv_sgd_perf debug/bin/dll_imagenet_perf debug/bin/dll_sgd_debug debug/bin/dll_dae debug/bin/dll_rbm_dae debug/bin/dll_perf_paper debug/bin/dll_perf_paper_conv debug/bin/dll_perf_conv debug/bin/dll_conv_types debug/bin/dll_dyn_perf
@@ -344,7 +350,7 @@ release_workbench: release/bin/dll_sgd_perf release/bin/dll_conv_sgd_perf releas
 # Build sets for the examples
 debug_examples: debug/bin/dll_mnist_mlp debug/bin/dll_mnist_cnn debug/bin/dll_mnist_ae debug/bin/dll_mnist_deep_ae
 release_debug_examples: release_debug/bin/dll_mnist_mlp release_debug/bin/dll_mnist_cnn release_debug/bin/dll_mnist_ae release_debug/bin/dll_mnist_deep_ae
-release_examples: release/bin/dll_mnist_mlp release/bin/dll_mnist_cnn release/bin/dll_mnist_ae release/bin/dll_mnist_deep_ae
+release_examples: release/bin/dll_mnist_mlp release/bin/dll_mnist_cnn release/bin/dll_mnist_ae release/bin/dll_mnist_deep_ae release/bin/dll_mnist_simple_example
 
 debug: debug_dllp debug_dll_test_unit debug_dll_test_perf debug_dll_test_misc debug_dll_view debug_examples
 release_debug: release_debug_dllp release_debug_dll_test_unit release_debug_dll_test_perf release_debug_dll_test_misc release_debug_dll_view release_debug_examples
