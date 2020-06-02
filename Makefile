@@ -343,11 +343,11 @@ $(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper-lib/mnist_lib.
 create_shared_library: release/lib/lib_dll_mnist_mylib.so
 
 # Create shared library for Cython wrapper
-$(eval $(call compile_for_shared_library,python-wrapper-lib))
+$(eval $(call folder_compile,python-wrapper-lib, -fPIC))
 $(eval $(call add_shared_library,libdll_mnist_mylib,python-wrapper-lib/mnist_lib.cpp))
 $(eval $(call build_example,mylib))
 
-example_shared_lib: release/lib/libdll_mnist_mylib.so release/lib/mylib
+example_shared_lib: release/lib/libdll_mnist_mylib.so release/bin/mylib
 
 # Build sets for workbench sources
 debug_workbench: debug/bin/dll_sgd_perf debug/bin/dll_conv_sgd_perf debug/bin/dll_imagenet_perf debug/bin/dll_sgd_debug debug/bin/dll_dae debug/bin/dll_rbm_dae debug/bin/dll_perf_paper debug/bin/dll_perf_paper_conv debug/bin/dll_perf_conv debug/bin/dll_conv_types debug/bin/dll_dyn_perf
