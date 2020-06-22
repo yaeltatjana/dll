@@ -7,7 +7,7 @@ include make-utils/cpp-utils.mk
 
 # Use C++17
 $(eval $(call use_cpp17))
-CXX_FLAGS += -pedantic -ftemplate-backtrace-limit=0
+CXX_FLAGS += -pedantic -Werror -ftemplate-backtrace-limit=0
 
 # If asked, use libcxx (optional)
 ifneq (,$(DLL_LIBCXX))
@@ -18,7 +18,7 @@ ifneq (,$(findstring clang,$(CXX)))
 CXX_FLAGS += -Wno-documentation
 endif
 
-RELEASE_FLAGS += -fno-rtti
+#RELEASE_FLAGS += -fno-rtti
 
 CXX_FLAGS += -Ietl/lib/include -Ietl/include/ -Imnist/include/ -Icifar-10/include/ -ICatch/include -Inice_svm/include
 LD_FLAGS += -lpthread
@@ -338,13 +338,14 @@ $(eval $(call add_executable_set,dll_perf_conv,dll_perf_conv))
 $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
 
 # Create shared library for Cython wrapper
-$(eval $(call compile_for_shared_library,python-wrapper-lib))
-$(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper-lib/mnist_lib.cpp))
-create_shared_library: release/lib/lib_dll_mnist_mylib.so
+#$(eval $(call compile_for_shared_library,python-wrapper-lib))
+#$(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper-lib/mnist_lib.cpp))
+#create_shared_library: release/lib/lib_dll_mnist_mylib.so
 
 # Create shared library for Cython wrapper
 $(eval $(call folder_compile,python-wrapper-lib, -fPIC))
-$(eval $(call add_shared_library,libdll_mnist_mylib,python-wrapper-lib/mnist_lib.cpp))
+CPP_SRC_FILES=$(wildcard python-wrapper-lib/*.cpp)
+$(eval $(call add_shared_library,libdll_mnist_mylib,$(CPP_SRC_FILES)))
 $(eval $(call build_example,mylib))
 
 example_shared_lib: release/lib/libdll_mnist_mylib.so release/bin/mylib
