@@ -1,5 +1,4 @@
 #include <iostream>
-#include <typeinfo>
 
 #include "mnist_lib.h"
 #include "mnist_lib_types.h"
@@ -41,9 +40,49 @@ void testActivations() {
     trainDenseRRSo(rrso, 5);
 }
 
+
+/**
+ * Method to test the MNIST reader library
+ */
+void testMnistReader() {
+    MnistReader ds;
+    ds.display();
+    ds.displayPretty();
+    ds.trainSet();
+    //ds.validationSet();
+    ds.testSet().display();
+}
+
+/**
+ * Method to test the network with dense layers (relu -> softmax)
+ */
+void testDenseDenseNet() {
+    MnistReader ds;
+    // layers not initialized with constructor
+    DenseDenseNet net1;
+    net1.setLayerSize(0, 28 * 28, 28 * 28);
+    net1.setLayerSize(1, 28 * 28, 30);
+
+    // n.display();
+    // n.fineTune(ds,5);
+    //n.all();
+
+    // layer initialized with constructor
+    std::vector <size_t> in{28 * 28, 16};
+    std::vector <size_t> out{16, 10};
+    DenseDenseNet net2(in, out);
+    // setLearningRate(0.2);
+    // net.setInitialMomentum(0.85);
+    net2.display();
+    net2.fineTune(ds, 5);
+    net2.evaluate(ds);
+}
+
 int main() {
     // testSimpleExample();
-    testActivations();
+    // testActivations();
+    // testMnistReader();
+    testDenseDenseNet();
 
     return 0;
 }
