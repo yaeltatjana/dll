@@ -25,10 +25,6 @@ void DenseDenseNet::setInitialMomentum(double m) {
     net->initial_momentum = m;
 }
 
-/*void DenseDenseNet::setRmspropDecay(double d) {
-    net->rmsprop_decay = d;
-}*/
-
 void DenseDenseNet::display() {
     net->display();
 }
@@ -43,6 +39,14 @@ float DenseDenseNet::fineTune(MnistReader &ds, size_t epochs) {
 
 void DenseDenseNet::evaluate(MnistReader &ds) {
     net->evaluate(ds.testSet());
+}
+
+void DenseDenseNet::storeWeights(const std::string& file) {
+    net->store(file);
+}
+
+void DenseDenseNet::loadWeights(const std::string& file) {
+    net->load(file);
 }
 
 void DenseDenseNet::all() {

@@ -12,6 +12,9 @@
  * Batch size: 100
  */
 class DenseDenseNet {
+    /**
+     * Pointer on the network based on 2 dense layers
+     */
     std::unique_ptr <dbn_dense_RSo> net;
 
 public:
@@ -71,6 +74,18 @@ public:
      * @param ds MnistDataset object which contains the dataset
      */
     void evaluate(MnistReader &ds);
+
+    /**
+     * Method to store the weights in a file
+     * @param file Name of the file where to save
+     */
+    void storeWeights(const std::string &file);
+
+    /**
+     * Method to load the weights from a file
+     * @param file Name of the file where load the weights
+     */
+    void loadWeights(const std::string &file);
 
     /**
      * Method to launch the same network but in the same scoop. Used to compare effect

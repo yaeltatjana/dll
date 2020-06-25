@@ -77,6 +77,7 @@ void testDenseDenseNet() {
     net2.display();
     net2.fineTune(ds, 5);
     net2.evaluate(ds);
+    net2.storeWeights("test_store.txt");
 }
 
 void testDDDNet() {
@@ -107,8 +108,8 @@ int main() {
     // testSimpleExample();
     // testActivations();
     // testMnistReader();
-    // testDenseDenseNet();
-    testDDDNet();
+    testDenseDenseNet();
+    // testDDDNet();
 
     return 0;
 }
