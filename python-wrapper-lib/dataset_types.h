@@ -6,14 +6,6 @@
  * Type of the dataset holder
  */
 
-struct MnistDataset {
-    std::vector <std::vector<uint8_t>> training_images;
-    std::vector <std::vector<uint8_t>> test_images;
-    std::vector <uint8_t> training_labels;
-    std::vector <uint8_t> test_labels;
-};
-
-
 using ds_mnist_t =
 dll::dataset_holder<
         dll::inmemory_data_generator<
