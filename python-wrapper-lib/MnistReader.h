@@ -2,13 +2,14 @@
 #define MNISTREADER_H
 
 #include "dataset_types.h"
+#include "dll/datasets.hpp"
 
 class MnistReader {
     ds_mnist_t dataset;
 
 public:
     MnistReader();
-    mnist::MNIST_dataset<std::vector, std::vector<uint8_t>,uint8_t> readDataset();
+    MnistDataset& readDataset();
     void display();
     void displayPretty();
     ds_trainG_t& trainSet();

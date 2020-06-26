@@ -6,8 +6,13 @@
 
 MnistReader::MnistReader() : dataset(dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {})) {}
 
-mnist::MNIST_dataset<std::vector, std::vector<uint8_t>,uint8_t> MnistReader::readDataset() {
-    mnist::MNIST_dataset<std::vector, std::vector<uint8_t>,uint8_t> ds = mnist::read_dataset();
+MnistDataset& MnistReader::readDataset() {
+    mnist::MNIST_dataset<std::vector, std::vector<uint8_t>,uint8_t> ds1 = mnist::read_dataset();
+    static MnistDataset ds;
+    ds.training_images = ds1.training_images;
+    ds.test_images = ds1.test_images;
+    ds.training_labels = ds1.training_labels;
+    ds.test_labels = ds1.test_labels;
     return ds;
 }
 
