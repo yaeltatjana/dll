@@ -1,34 +1,31 @@
-#ifndef DENSEDENSENET_H
-#define DENSEDENSENET_H
+#ifndef DENSEDENSEDENSENET_H
+#define DENSEDENSEDENSENET_H
 
-#include <vector>
+#include <memory>
 #include "network_types.h"
 #include "MnistReader.h"
 
 /**
- * Network with 2 Dense layers : relu -> softmax
+ * Network with 3 Dense layers : relu -> relu -> softmax
  * Updater (optimization algo) : Stochastic Gradient Descent with MOMENTUM
  * Loss function: CATEGORICAL_CROSS_ENTROPY
  * Batch size: 100
  */
-class DenseDenseNet {
-    /**
-     * Pointer on the network based on 2 dense layers
-     */
-    std::unique_ptr <dbn_dense_RSo> net;
+class DenseDenseDenseNet {
+    std::unique_ptr <dbn_3dense_RRSo> net;
 
 public:
     /**
      * Default constructor with no initialization of the layers
      */
-    DenseDenseNet();
+    DenseDenseDenseNet();
 
     /**
      * Constructor with input/output sizes
      * @param nb_input Vector containing sizes of layers
      * @param nb_output Vector containing sizes of the layers
      */
-    DenseDenseNet(std::vector <size_t> &nb_input, std::vector <size_t> &nb_output);
+    DenseDenseDenseNet(std::vector <size_t> &nb_input, std::vector <size_t> &nb_output);
 
     /**
      * Method to change the learning rate value, default to 0.1
@@ -49,7 +46,6 @@ public:
      * @param m
      */
     void setInitialMomentum(double m);
-    // void setRmspropDecay(double d);
 
     /**
      * Method to display the network
@@ -62,7 +58,7 @@ public:
     void displayPretty();
 
     /**
-     * Method to train the network with a given dataset
+     * Method to train the network with a given dataset 
      * @param ds MnistDataset object which contains the dataset
      * @param epochs Number of epochs
      * @return Final classification error
@@ -89,4 +85,4 @@ public:
 };
 
 
-#endif //DENSEDENSENET_H
+#endif //DENSEDENSEDENSENET_H

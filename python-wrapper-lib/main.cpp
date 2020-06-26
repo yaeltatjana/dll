@@ -1,10 +1,10 @@
 #include <iostream>
-#include <typeinfo>
 
 #include "mnist_lib.h"
 #include "mnist_lib_types.h"
 #include "MnistReader.h"
 #include "DenseDenseNet.h"
+#include "DenseDenseDenseNet.h"
 
 
 /**
@@ -41,9 +41,75 @@ void testActivations() {
     trainDenseRRSo(rrso, 5);
 }
 
+
+/**
+ * Method to test the MNIST reader library
+ */
+void testMnistReader() {
+    MnistReader ds;
+    ds.display();
+    ds.displayPretty();
+    ds.trainSet();
+    //ds.validationSet();
+    ds.testSet().display();
+}
+
+/**
+ * Method to test the network with dense layers (relu -> softmax)
+ */
+void testDenseDenseNet() {
+    MnistReader ds;
+    // layers not initialized with constructor
+    DenseDenseNet net1;
+    net1.setLayerSize(0, 28 * 28, 28 * 28);
+    net1.setLayerSize(1, 28 * 28, 30);
+
+    // n.display();
+    // n.fineTune(ds,5);
+    //n.all();
+
+    // layer initialized with constructor
+    std::vector <size_t> in{28 * 28, 16};
+    std::vector <size_t> out{16, 10};
+    DenseDenseNet net2(in, out);
+    // setLearningRate(0.2);
+    // net.setInitialMomentum(0.85);
+    net2.display();
+    net2.fineTune(ds, 5);
+    net2.evaluate(ds);
+    net2.storeWeights("test_store.txt");
+}
+
+void testDDDNet() {
+    MnistReader ds;
+    // layers not initialized with constructor
+    DenseDenseDenseNet net1;
+    net1.setLayerSize(0, 28 * 28, 28 * 28);
+    net1.setLayerSize(1, 28 * 28, 30);
+    net1.setLayerSize(2, 30, 10);
+
+    net1.display();
+    // n.fineTune(ds,5);
+
+    // layer initialized with constructor
+    std::vector <size_t> in{28 * 28, 16, 16};
+    std::vector <size_t> out{16, 16, 10};
+    DenseDenseDenseNet net2(in, out);
+    // setLearningRate(0.2);
+    // net.setInitialMomentum(0.85);
+    net2.display();
+    net2.fineTune(ds, 10);
+    net2.loadWeights("test_store.txt");
+    net2.evaluate(ds);
+    net2.storeWeights("test_store.txt");
+}
+
 int main() {
     // testSimpleExample();
-    testActivations();
+    // testActivations();
+    // testMnistReader();
+    testDenseDenseNet();
+    // testDDDNet();
 
     return 0;
 }
