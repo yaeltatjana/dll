@@ -58,10 +58,10 @@ public:
     void displayPretty();
 
     /**
-     * Method to train the network with a given dataset
+     * Method to train the network with a given dataset 
      * @param ds MnistDataset object which contains the dataset
      * @param epochs Number of epochs
-     * @return ??? TODO
+     * @return Final classification error
      */
     float fineTune(MnistReader &ds, size_t epochs);
 
@@ -71,10 +71,17 @@ public:
      */
     void evaluate(MnistReader &ds);
 
-    void storeWeights(const std::string& file);
+    /**
+     * Method to store the weights in a file
+     * @param file Name of the file where to save
+     */
+    void storeWeights(const std::string &file);
 
-    void loadWeights(const std::string& file);
-
+    /**
+     * Method to load the weights from a file
+     * @param file Name of the file where load the weights
+     */
+    void loadWeights(const std::string &file);
 };
 
 

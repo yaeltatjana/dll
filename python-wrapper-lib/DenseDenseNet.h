@@ -65,7 +65,7 @@ public:
      * Method to train the network with a given dataset
      * @param ds MnistDataset object which contains the dataset
      * @param epochs Number of epochs
-     * @return ??? TODO
+     * @return Final classification error
      */
     float fineTune(MnistReader &ds, size_t epochs);
 
@@ -86,11 +86,6 @@ public:
      * @param file Name of the file where load the weights
      */
     void loadWeights(const std::string &file);
-
-    /**
-     * Method to launch the same network but in the same scoop. Used to compare effect
-     */
-    void all();
 };
 
 
