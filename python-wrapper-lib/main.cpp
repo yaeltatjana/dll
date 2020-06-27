@@ -113,7 +113,10 @@ void testLeNet() {
 
 void testMnist3DReader() {
     Mnist3DReader r;
-    std::cout << r.getTestLabels().size() << std::endl;
+    std::cout << r.readTrainingImages().size() << std::endl;
+    std::cout << r.readTestImages().size() << std::endl;
+    std::cout << r.readTrainingLabels().size() << std::endl;
+    std::cout << r.readTestLabels().size() << std::endl;
 }
 
 int main() {

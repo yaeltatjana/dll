@@ -82,6 +82,7 @@ dll::scale_pre<255>,
 dll::categorical>,
 void>;
 
-using ds_mnist_3d_t = mnist::MNIST_dataset<std::vector, etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>, uint8_t>;
+using ds_mnist_3d_t =
+        mnist::MNIST_dataset<std::vector, etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>, uint8_t>;
 
 #endif //DATASET_TYPES_H
