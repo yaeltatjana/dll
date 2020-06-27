@@ -3,8 +3,10 @@
 #include "mnist_lib.h"
 #include "mnist_lib_types.h"
 #include "MnistReader.h"
+#include "Mnist3DReader.h"
 #include "DenseDenseNet.h"
 #include "DenseDenseDenseNet.h"
+#include "LeNet.h"
 
 
 /**
@@ -104,12 +106,24 @@ void testDDDNet() {
     net2.storeWeights("test_store.txt");
 }
 
+void testLeNet() {
+    LeNet n;
+    n.all();
+}
+
+void testMnist3DReader() {
+    Mnist3DReader r;
+    std::cout << r.getTestLabels().size() << std::endl;
+}
+
 int main() {
     // testSimpleExample();
     // testActivations();
     // testMnistReader();
-    testDenseDenseNet();
+    // testDenseDenseNet();
     // testDDDNet();
+    // testLeNet();
+    testMnist3DReader();
 
     return 0;
 }
