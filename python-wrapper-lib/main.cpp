@@ -7,6 +7,7 @@
 #include "DenseDenseNet.h"
 #include "DenseDenseDenseNet.h"
 #include "LeNet.h"
+#include "AlexNet.h"
 
 
 /**
@@ -108,7 +109,14 @@ void testDDDNet() {
 
 void testLeNet() {
     LeNet n;
-    n.all();
+    n.display();
+    n.displayPretty();
+
+    //Mnist3DReader r;
+    //n.fineTune(r,20);
+
+
+    all2();
 }
 
 void testMnist3DReader() {
@@ -119,6 +127,25 @@ void testMnist3DReader() {
     std::cout << r.readTestLabels().size() << std::endl;
 }
 
+void testAlexNet() {
+    AlexNet n;
+    n.setConvLayer(0, 1, 28, 28, 12, 5, 5);
+    n.setMPLayer(1, 12, 24, 24, 2, 2);
+    n.setConvLayer(2, 12, 12, 12, 12, 3, 3);
+    n.setMPLayer(3, 12, 10, 10, 2, 2);
+    n.setConvLayer(4, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(5, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(6, 12, 5, 5, 12, 2, 2);
+    n.setMPLayer(7, 12, 4, 4, 2, 2);
+    n.setDenseLayer(8, 12 * 2 * 2, 32);
+    n.setDenseLayer(9, 32, 10);
+    n.display();
+
+    MnistReader r;
+    n.fineTune(r, 5);
+    n.evaluate(r);
+}
+
 int main() {
     // testSimpleExample();
     // testActivations();
@@ -126,7 +153,9 @@ int main() {
     // testDenseDenseNet();
     // testDDDNet();
     // testLeNet();
-    testMnist3DReader();
+    // testMnist3DReader();
+    // testLeNet();
+    testAlexNet();
 
     return 0;
 }
