@@ -12,14 +12,17 @@ class Mnist3DReader {
 public:
     Mnist3DReader();
 
-    std::vector <std::vector <uint8_t>> readTrainingImages();
-    std::vector <std::vector <uint8_t>> readTestImages();
-    std::vector <uint8_t> readTrainingLabels();
-    std::vector <uint8_t> readTestLabels();
+    std::vector <std::vector<uint8_t>> &readTrainingImages();
 
-    std::vector<etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>> getTrainingImages();
+    std::vector <std::vector<uint8_t>> &readTestImages();
 
-    std::vector<etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>> getTestImages();
+    std::vector <uint8_t> &readTrainingLabels();
+
+    std::vector <uint8_t> &readTestLabels();
+
+    std::vector <etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>> &getTrainingImages();
+
+    std::vector <etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>> &getTestImages();
 
 };
 
