@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "dataset_types.h"
+#include "../dataset_types.h"
 #include "dll/datasets.hpp"
 
 class Mnist3DReader {

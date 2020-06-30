@@ -1,8 +1,8 @@
 #ifndef ALEXNET_H
 #define ALEXNET_H
 
-#include "network_types.h"
-#include "MnistReader.h"
+#include "../network_types.h"
+#include "../datasets/MnistReader.h"
 
 class AlexNet {
     std::unique_ptr <dbn_alexnet> net;

@@ -2,9 +2,9 @@
 #define LENET_H
 
 #include <vector>
-#include "network_types.h"
-#include "Mnist3DReader.h"
-#include "MnistReader.h"
+#include "../network_types.h"
+#include "../datasets/Mnist3DReader.h"
+#include "../datasets/MnistReader.h"
 
 
 class LeNet {

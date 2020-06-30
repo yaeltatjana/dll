@@ -1,7 +1,7 @@
 #ifndef MNISTREADER_H
 #define MNISTREADER_H
 
-#include "dataset_types.h"
+#include "../dataset_types.h"
 #include "dll/datasets.hpp"
 
 /**
