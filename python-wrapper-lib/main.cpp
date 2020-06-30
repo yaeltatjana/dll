@@ -2,12 +2,13 @@
 
 #include "mnist_lib.h"
 #include "mnist_lib_types.h"
-#include "MnistReader.h"
-#include "Mnist3DReader.h"
-#include "DenseDenseNet.h"
-#include "DenseDenseDenseNet.h"
-#include "LeNet.h"
-#include "AlexNet.h"
+#include "datasets/MnistReader.h"
+#include "datasets/Mnist3DReader.h"
+#include "networks/DenseDenseNet.h"
+#include "networks/DenseDenseDenseNet.h"
+#include "networks/LeNet.h"
+#include "networks/AlexNet.h"
+#include "networks/VGGNet.h"
 
 
 /**
@@ -146,6 +147,43 @@ void testAlexNet() {
     n.evaluate(r);
 }
 
+void testVGGNet() {
+    // TODO: change values, random ones actually
+    VGGNet n;
+    n.setConvLayer(0, 1, 28, 28, 12, 5, 5);
+    n.setConvLayer(1, 1, 28, 28, 12, 5, 5);
+    n.setMPLayer(2, 12, 24, 24, 2, 2);
+
+    n.setConvLayer(3, 12, 12, 12, 12, 3, 3);
+    n.setConvLayer(4, 12, 12, 12, 12, 3, 3);
+    n.setMPLayer(5, 12, 10, 10, 2, 2);
+
+    n.setConvLayer(6, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(7, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(8, 12, 5, 5, 12, 2, 2);
+    n.setMPLayer(9, 12, 4, 4, 2, 2);
+
+    n.setConvLayer(10, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(11, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(12, 12, 5, 5, 12, 2, 2);
+    n.setMPLayer(13, 12, 4, 4, 2, 2);
+
+    n.setConvLayer(14, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(15, 12, 5, 5, 12, 1, 1);
+    n.setConvLayer(16, 12, 5, 5, 12, 2, 2);
+    n.setMPLayer(17, 12, 4, 4, 2, 2);
+
+    n.setDenseLayer(18, 12 * 2 * 2, 32);
+    n.setDenseLayer(19, 12 * 2 * 2, 32);
+    n.setDenseLayer(20, 32, 10);
+    n.display();
+
+    MnistReader r;
+    n.fineTune(r, 5);
+    n.evaluate(r);
+
+}
+
 int main() {
     // testSimpleExample();
     // testActivations();
@@ -155,7 +193,8 @@ int main() {
     // testLeNet();
     // testMnist3DReader();
     // testLeNet();
-    testAlexNet();
+    // testAlexNet();
+    testVGGNet();
 
     return 0;
 }

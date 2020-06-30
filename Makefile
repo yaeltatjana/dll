@@ -343,8 +343,10 @@ $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
 #create_shared_library: release/lib/lib_dll_mnist_mylib.so
 
 # Create shared library for Cython wrapper
-$(eval $(call folder_compile,python-wrapper-lib, -fPIC))
-CPP_SRC_FILES=$(wildcard python-wrapper-lib/*.cpp)
+CPP_SRC_FILES=$(wildcard python-wrapper-lib/*.cpp) $(wildcard python-wrapper-lib/*/*.cpp)
+$(eval $(call folder_compile,python-wrapper-lib, -fPIC)) # TODO: remove
+$(eval $(call folder_compile,python-wrapper-lib/networks, -fPIC))
+$(eval $(call folder_compile,python-wrapper-lib/datasets, -fPIC))
 $(eval $(call add_shared_library,libdll_mnist_mylib,$(CPP_SRC_FILES)))
 $(eval $(call build_example,mylib))
 

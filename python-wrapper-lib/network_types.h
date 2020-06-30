@@ -50,16 +50,50 @@ dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::bat
 using dbn_alexnet = dll::dbn_desc<
         dll::dbn_layers<
         dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-        dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
+dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
+dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
+dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
+
+
+using dbn_vggnet = dll::dbn_desc<
+    dll::dbn_layers<
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
+    dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+
+    dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
+    dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
+    dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
+
+    dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
+
+
 
 
 #endif //KERAS4DLL_II_NETWORK_TYPES_H
