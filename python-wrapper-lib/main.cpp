@@ -4,6 +4,7 @@
 #include "mnist_lib_types.h"
 #include "datasets/MnistReader.h"
 #include "datasets/Mnist3DReader.h"
+#include "datasets/TextReader.h"
 #include "networks/DenseDenseNet.h"
 #include "networks/DenseDenseDenseNet.h"
 #include "networks/LeNet.h"
@@ -184,6 +185,11 @@ void testVGGNet() {
 
 }
 
+void testTextReader() {
+    TextReader r("test/text_db/images", "test/text_db/labels");
+    std::cout << (int) r.readLabels()[0] << std::endl;
+}
+
 int main() {
     // testSimpleExample();
     // testActivations();
@@ -194,7 +200,8 @@ int main() {
     // testMnist3DReader();
     // testLeNet();
     // testAlexNet();
-    testVGGNet();
+    // testVGGNet();
+    testTextReader();
 
     return 0;
 }
