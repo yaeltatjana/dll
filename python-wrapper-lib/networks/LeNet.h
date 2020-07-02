@@ -66,10 +66,6 @@ public:
      */
     void loadWeights(const std::string &file);
 
-
 };
-
-void all2();
-
 
 #endif //LENET_H

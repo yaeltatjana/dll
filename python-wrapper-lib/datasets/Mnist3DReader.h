@@ -23,7 +23,6 @@ public:
     std::vector <etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>> &getTrainingImages();
 
     std::vector <etl::dyn_matrix_impl<float, etl::order::RowMajor, 3>> &getTestImages();
-
 };
 
 

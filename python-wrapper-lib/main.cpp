@@ -116,9 +116,6 @@ void testLeNet() {
 
     //Mnist3DReader r;
     //n.fineTune(r,20);
-
-
-    all2();
 }
 
 void testMnist3DReader() {

@@ -1,9 +1,7 @@
 #include "Mnist3DReader.h"
-#include <typeinfo>
 
 Mnist3DReader::Mnist3DReader() :
         dataset(mnist::read_dataset_3d < std::vector, etl::dyn_matrix < float, 3 >> ()) {}
-
 
 std::vector <std::vector<uint8_t>> &Mnist3DReader::readTrainingImages() {
     static std::vector <std::vector<uint8_t>> imgs = mnist::read_dataset().training_images;

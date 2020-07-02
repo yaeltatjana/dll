@@ -1,6 +1,5 @@
 #include "MnistReader.h"
 #include "dll/datasets.hpp"
-#include <typeinfo>
 #include <iostream>
 
 MnistDataset::MnistDataset(mnist::MNIST_dataset <std::vector, std::vector<uint8_t>, uint8_t> ds) {

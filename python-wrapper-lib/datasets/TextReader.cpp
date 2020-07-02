@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include "TextReader.h"
 #include "dll/text_reader.hpp"

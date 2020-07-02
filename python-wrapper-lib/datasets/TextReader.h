@@ -1,6 +1,7 @@
 #ifndef TEXTREADER_H
 #define TEXTREADER_H
 
+#include <vector>
 
 class TextReader {
     std::vector <std::vector<uint8_t>> images;
