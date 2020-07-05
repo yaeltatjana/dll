@@ -104,9 +104,7 @@ void testDDDNet() {
     // net.setInitialMomentum(0.85);
     net2.display();
     net2.fineTune(ds, 10);
-    net2.loadWeights("test_store.txt");
     net2.evaluate(ds);
-    net2.storeWeights("test_store.txt");
 }
 
 void testLeNet() {
@@ -187,18 +185,45 @@ void testTextReader() {
     std::cout << (int) r.readLabels()[0] << std::endl;
 }
 
+void testLoadStore() {
+    MnistReader ds;
+    // layers not initialized with constructor
+    DenseDenseNet net1;
+    net1.setLayerSize(0, 28 * 28, 28 * 28);
+    net1.setLayerSize(1, 28 * 28, 30);
+
+
+    // layer initialized with constructor
+    std::vector <size_t> in{28 * 28, 16};
+    std::vector <size_t> out{16, 10};
+
+    DenseDenseNet net2(in, out);
+    // setLearningRate(0.2);
+    // net.setInitialMomentum(0.85);
+    net2.display();
+    net2.fineTune(ds, 5);
+    net2.evaluate(ds);
+
+    net2.storeWeights("test_store.bin");
+    net1.evaluate(ds);
+    net1.loadWeights("test_store.bin");
+    net1.evaluate(ds);
+}
+
 int main() {
-    //testSimpleExample();
-    // testActivations();
-    testMnistReader();
-    testDenseDenseNet();
-    testDDDNet();
-    testLeNet();
-    testMnist3DReader();
-    testLeNet();
-    testAlexNet();
-    // testVGGNet19();
-    testTextReader();
+//    testSimpleExample();
+//    testActivations();
+//    testMnistReader();
+//    testDenseDenseNet();
+//    testDDDNet();
+//    testLeNet();
+//    testMnist3DReader();
+//    testLeNet();
+//    testAlexNet();
+//    testVGGNet19();
+//    testTextReader();
+    testLoadStore();
+
 
     return 0;
 }
