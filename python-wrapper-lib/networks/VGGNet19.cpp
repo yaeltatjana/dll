@@ -1,17 +1,17 @@
-#include "VGGNet.h"
+#include "VGGNet19.h"
 #include <memory>
 
-VGGNet::VGGNet() : net(std::make_unique<dbn_vggnet>()) { }
+VGGNet19::VGGNet19() : net(std::make_unique<dbn_vggnet19>()) { }
 
-void VGGNet::display() {
+void VGGNet19::display() {
     net->display();
 }
 
-void VGGNet::displayPretty() {
+void VGGNet19::displayPretty() {
     net->display_pretty();
 }
 
-void VGGNet::setConvLayer(size_t layer, size_t channel, size_t dim1, size_t dim2, size_t nbFilt, size_t filt1, size_t filt2) {
+void VGGNet19::setConvLayer(size_t layer, size_t channel, size_t dim1, size_t dim2, size_t nbFilt, size_t filt1, size_t filt2) {
 
     switch(layer) {
         case 0:net->template layer_get<0>().init_layer(channel, dim1, dim2, nbFilt, filt1, filt2); break;
@@ -31,7 +31,7 @@ void VGGNet::setConvLayer(size_t layer, size_t channel, size_t dim1, size_t dim2
 
 }
 
-void VGGNet::setMPLayer(size_t layer, size_t channel, size_t dim1, size_t dim2, size_t pool1, size_t pool2) {
+void VGGNet19::setMPLayer(size_t layer, size_t channel, size_t dim1, size_t dim2, size_t pool1, size_t pool2) {
     switch(layer) {
         case 2: net->template layer_get<2>().init_layer(channel, dim1, dim2, pool1, pool2); break;
         case 5: net->template layer_get<5>().init_layer(channel, dim1, dim2, pool1, pool2); break;
@@ -41,7 +41,7 @@ void VGGNet::setMPLayer(size_t layer, size_t channel, size_t dim1, size_t dim2, 
     }
 }
 
-void VGGNet::setDenseLayer(size_t layer, size_t inputSize, size_t outputSize) {
+void VGGNet19::setDenseLayer(size_t layer, size_t inputSize, size_t outputSize) {
     switch(layer) {
         case 18: net->template layer_get<18>().init_layer(inputSize, outputSize); break;
         case 19: net->template layer_get<19>().init_layer(inputSize, outputSize); break;
@@ -49,30 +49,30 @@ void VGGNet::setDenseLayer(size_t layer, size_t inputSize, size_t outputSize) {
     }
 }
 
-void VGGNet::setLearningRate(double rate) {
+void VGGNet19::setLearningRate(double rate) {
     net->learning_rate = rate;
 }
 
-void VGGNet::setAdamBeta1(double beta) {
+void VGGNet19::setAdamBeta1(double beta) {
     net->adam_beta1 = beta;
 }
 
-void VGGNet::setAdamBeta2(double beta) {
+void VGGNet19::setAdamBeta2(double beta) {
     net->adam_beta2 = beta;
 }
 
-float VGGNet::fineTune(MnistReader &ds, size_t epochs) {
+float VGGNet19::fineTune(MnistReader &ds, size_t epochs) {
     return net->fine_tune(ds.trainSet(), epochs);
 }
 
-void VGGNet::evaluate(MnistReader &ds) {
+void VGGNet19::evaluate(MnistReader &ds) {
     net->evaluate(ds.trainSet());
 }
 
-void VGGNet::storeWeights(const std::string &file) {
+void VGGNet19::storeWeights(const std::string &file) {
     net->store(file);
 }
 
-void VGGNet::loadWeights(const std::string &file) {
+void VGGNet19::loadWeights(const std::string &file) {
     net->load(file);
 }

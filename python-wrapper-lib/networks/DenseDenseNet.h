@@ -2,8 +2,20 @@
 #define DENSEDENSENET_H
 
 #include <vector>
-#include "../network_types.h"
+#include "dll/neural/dyn_dense_layer.hpp"
+#include "dll/network.hpp"
 #include "../datasets/MnistReader.h"
+
+
+using dbn_2dense = dll::dbn_desc<dll::dbn_layers <
+        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
+        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
+        dll::updater <dll::updater_type::MOMENTUM>,
+        dll::trainer <dll::sgd_trainer>,
+        dll::shuffle,
+        dll::batch_size<100>>
+        ::dbn_t;
+
 
 /**
  * Network with 2 Dense layers : relu -> softmax
@@ -15,7 +27,7 @@ class DenseDenseNet {
     /**
      * Pointer on the network based on 2 dense layers
      */
-    std::unique_ptr <dbn_dense_RSo> net;
+    std::unique_ptr <dbn_2dense> net;
 
 public:
     /**
