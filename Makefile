@@ -338,19 +338,14 @@ $(eval $(call add_executable_set,dll_perf_conv,dll_perf_conv))
 $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
 
 # Create shared library for Cython wrapper
-#$(eval $(call compile_for_shared_library,python-wrapper-lib))
-#$(eval $(call build_shared_library,dll_mnist_mylib,python-wrapper-lib/mnist_lib.cpp))
-#create_shared_library: release/lib/lib_dll_mnist_mylib.so
-
-# Create shared library for Cython wrapper
-CPP_SRC_FILES=$(wildcard python-wrapper-lib/*.cpp) $(wildcard python-wrapper-lib/*/*.cpp)
+CPP_SRC_WRAPPER=$(wildcard python-wrapper-lib/*.cpp) $(wildcard python-wrapper-lib/networks/*.cpp) $(wildcard python-wrapper-lib/datasets/*.cpp)
 $(eval $(call folder_compile,python-wrapper-lib, -fPIC)) # TODO: remove
 $(eval $(call folder_compile,python-wrapper-lib/networks, -fPIC))
 $(eval $(call folder_compile,python-wrapper-lib/datasets, -fPIC))
-$(eval $(call add_shared_library,libdll_mnist_mylib,$(CPP_SRC_FILES)))
+$(eval $(call add_shared_library,libdll_mnist_mylib,$(CPP_SRC_WRAPPER)))
 $(eval $(call build_example,mylib))
 
-# For benchmark
+# Compile files for benchmark of wrapper
 $(eval $(call auto_folder_compile,python-wrapper-lib/benchmark))
 $(eval $(call add_executable,dd_perf,python-wrapper-lib/benchmark/dd_perf.cpp))
 $(eval $(call add_executable,ddd_perf,python-wrapper-lib/benchmark/ddd_perf.cpp))
@@ -358,7 +353,7 @@ $(eval $(call add_executable,lenet_perf,python-wrapper-lib/benchmark/lenet_perf.
 $(eval $(call add_executable,alexnet_perf,python-wrapper-lib/benchmark/alexnet_perf.cpp))
 $(eval $(call add_executable,vggnet19_perf,python-wrapper-lib/benchmark/vggnet19_perf.cpp))
 
-
+wrapper_lib: release/lib/libdll_mnist_mylib.so
 example_shared_lib: release/lib/libdll_mnist_mylib.so release/bin/mylib
 wrapper_perf: release/bin/dd_perf release/bin/ddd_perf release/bin/lenet_perf release/bin/alexnet_perf release/bin/vggnet19_perf
 
