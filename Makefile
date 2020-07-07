@@ -350,7 +350,17 @@ $(eval $(call folder_compile,python-wrapper-lib/datasets, -fPIC))
 $(eval $(call add_shared_library,libdll_mnist_mylib,$(CPP_SRC_FILES)))
 $(eval $(call build_example,mylib))
 
+# For benchmark
+$(eval $(call auto_folder_compile,python-wrapper-lib/benchmark))
+$(eval $(call add_executable,dd_perf,python-wrapper-lib/benchmark/dd_perf.cpp))
+$(eval $(call add_executable,ddd_perf,python-wrapper-lib/benchmark/ddd_perf.cpp))
+$(eval $(call add_executable,lenet_perf,python-wrapper-lib/benchmark/lenet_perf.cpp))
+$(eval $(call add_executable,alexnet_perf,python-wrapper-lib/benchmark/alexnet_perf.cpp))
+$(eval $(call add_executable,vggnet19_perf,python-wrapper-lib/benchmark/vggnet19_perf.cpp))
+
+
 example_shared_lib: release/lib/libdll_mnist_mylib.so release/bin/mylib
+wrapper_perf: release/bin/dd_perf release/bin/ddd_perf release/bin/lenet_perf release/bin/alexnet_perf release/bin/vggnet19_perf
 
 # Build sets for workbench sources
 debug_workbench: debug/bin/dll_sgd_perf debug/bin/dll_conv_sgd_perf debug/bin/dll_imagenet_perf debug/bin/dll_sgd_debug debug/bin/dll_dae debug/bin/dll_rbm_dae debug/bin/dll_perf_paper debug/bin/dll_perf_paper_conv debug/bin/dll_perf_conv debug/bin/dll_conv_types debug/bin/dll_dyn_perf

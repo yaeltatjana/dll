@@ -8,7 +8,7 @@ DenseDenseDenseNet::DenseDenseDenseNet(std::vector <size_t> &nb_input, std::vect
         net(std::make_unique<dbn_3dense>()) {
     net->template layer_get<0>().init_layer(nb_input[0], nb_output[0]);
     net->template layer_get<1>().init_layer(nb_input[1], nb_output[1]);
-    net->template layer_get<2>().init_layer(nb_input[1], nb_output[2]);
+    net->template layer_get<2>().init_layer(nb_input[2], nb_output[2]);
 }
 
 void DenseDenseDenseNet::setLearningRate(double l_rate) {
