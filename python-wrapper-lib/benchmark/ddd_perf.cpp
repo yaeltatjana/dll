@@ -130,7 +130,7 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
 }
 
 int main(int, char**) {
-    std::ofstream file("wrapper_perf/benchmark_cpp_ddd.txt",  std::ofstream::out | std::ofstream::trunc);
+    std::ofstream file("../benchmark/benchmark_cpp_ddd.txt",  std::ofstream::out | std::ofstream::trunc);
     file.clear();
 
     perfInit(10000, file);
