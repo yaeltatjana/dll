@@ -7,6 +7,7 @@
 #include "dll/neural/dyn_conv_layer.hpp"
 #include "dll/pooling/dyn_mp_layer.hpp"
 #include "../datasets/MnistReader.h"
+#include "../datasets/TextReader.h"
 
 using dbn_lenet = dll::dbn_desc<
         dll::dbn_layers<
@@ -65,6 +66,20 @@ public:
      * @param ds MnistDataset object which contains the dataset
      */
     void evaluate(MnistReader &ds);
+
+    /**
+     * Method to train the network with a given dataset
+     * @param ds TextReader object which contains the dataset
+     * @param epochs Number of epochs
+     * @return Final classification error
+     */
+    float fineTune(TextReader &ds, size_t epochs);
+
+    /**
+     * Method to evaluate the network
+     * @param ds TextReader object which contains the dataset
+     */
+    void evaluate(TextReader &ds);
 
     /**
      * Method to store the weights in a file

@@ -182,31 +182,33 @@ void testVGGNet19() {
 
 void testTextReader() {
     TextReader r("test/text_db/images", "test/text_db/labels");
-    std::cout << (int) r.readLabels()[0] << std::endl;
+
+    DenseDenseNet net;
+    net.setLayerSize(0, 28 * 28, 16);
+    net.setLayerSize(1, 16, 10);
+
+    net.fineTune(r, 5);
+    net.evaluate(r);
 }
 
 void testLoadStore() {
     MnistReader ds;
     // layers not initialized with constructor
     DenseDenseNet net1;
-    net1.setLayerSize(0, 28 * 28, 28 * 28);
-    net1.setLayerSize(1, 28 * 28, 30);
+    net1.setLayerSize(0, 28 * 28, 16);
+    net1.setLayerSize(1, 16, 10);
+    DenseDenseNet net2;
+    net2.setLayerSize(0, 28 * 28, 16);
+    net2.setLayerSize(1, 16, 10);
 
 
-    // layer initialized with constructor
-    std::vector <size_t> in{28 * 28, 16};
-    std::vector <size_t> out{16, 10};
-
-    DenseDenseNet net2(in, out);
-    // setLearningRate(0.2);
-    // net.setInitialMomentum(0.85);
     net2.display();
     net2.fineTune(ds, 5);
     net2.evaluate(ds);
 
-    net2.storeWeights("test_store.bin");
+    net2.storeWeights("test_store.so");
     net1.evaluate(ds);
-    net1.loadWeights("test_store.bin");
+    net1.loadWeights("test_store.so");
     net1.evaluate(ds);
 }
 
@@ -221,7 +223,7 @@ int main() {
 //    testLeNet();
 //    testAlexNet();
 //    testVGGNet19();
-//    testTextReader();
+    testTextReader();
     testLoadStore();
 
 

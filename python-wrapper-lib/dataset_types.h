@@ -39,6 +39,15 @@ void>,
 int>;
 
 
+struct MNIST_Dataset {
+    std::vector <std::vector<uint8_t>> training_images;
+    std::vector <std::vector<uint8_t>> test_images;
+    std::vector <uint8_t> training_labels;
+    std::vector <uint8_t> test_labels;
+};
+
+
+
 /**
  * Type of the train generator
  */
@@ -56,13 +65,6 @@ dll::batch_size<100>,
 dll::scale_pre<255>,
 dll::categorical>,
 void>;
-
-struct MNIST_Dataset {
-    std::vector <std::vector<uint8_t>> training_images;
-    std::vector <std::vector<uint8_t>> test_images;
-    std::vector <uint8_t> training_labels;
-    std::vector <uint8_t> test_labels;
-};
 
 /**
  * Type of the test generator

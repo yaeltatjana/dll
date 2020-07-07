@@ -1,4 +1,5 @@
 #include <memory>
+#include <typeinfo>
 #include "DenseDenseNet.h"
 
 DenseDenseNet::DenseDenseNet() : net(std::make_unique<dbn_2dense>()) {}
@@ -38,6 +39,14 @@ float DenseDenseNet::fineTune(MnistReader &ds, size_t epochs) {
 
 void DenseDenseNet::evaluate(MnistReader &ds) {
     net->evaluate(ds.testSet());
+}
+
+float DenseDenseNet::fineTune(TextReader &ds, size_t epochs) {
+    return net->fine_tune(ds.getImages(), ds.readLabels(), epochs);
+}
+
+void DenseDenseNet::evaluate(TextReader &ds) {
+    net->evaluate(ds.getImages(), ds.readLabels());
 }
 
 void DenseDenseNet::storeWeights(const std::string& file) {

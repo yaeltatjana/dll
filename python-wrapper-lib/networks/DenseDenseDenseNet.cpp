@@ -43,6 +43,15 @@ void DenseDenseDenseNet::evaluate(MnistReader &ds) {
     net->evaluate(ds.testSet());
 }
 
+float DenseDenseDenseNet::fineTune(TextReader &ds, size_t epochs) {
+    return net->fine_tune(ds.getImages(), ds.readLabels(), epochs);
+}
+
+void DenseDenseDenseNet::evaluate(TextReader &ds) {
+    net->evaluate(ds.getImages(), ds.readLabels());
+}
+
+
 void DenseDenseDenseNet::storeWeights(const std::string& file) {
     net->store(file);
 }

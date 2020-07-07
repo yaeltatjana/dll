@@ -55,6 +55,15 @@ void AlexNet::evaluate(MnistReader &ds) {
     net->evaluate(ds.trainSet());
 }
 
+float AlexNet::fineTune(TextReader &ds, size_t epochs) {
+    return net->fine_tune(ds.getImages(), ds.readLabels(), epochs);
+}
+
+void AlexNet::evaluate(TextReader &ds) {
+    net->evaluate(ds.getImages(), ds.readLabels());
+}
+
+
 void AlexNet::storeWeights(const std::string &file) {
     net->store(file);
 }

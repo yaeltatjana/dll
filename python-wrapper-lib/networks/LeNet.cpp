@@ -54,6 +54,14 @@ void LeNet::evaluate(MnistReader &ds) {
     net->evaluate(ds.trainSet());
 }
 
+float LeNet::fineTune(TextReader &ds, size_t epochs) {
+    return net->fine_tune(ds.getImages(), ds.readLabels(), epochs);
+}
+
+void LeNet::evaluate(TextReader &ds) {
+    net->evaluate(ds.getImages(), ds.readLabels());
+}
+
 void LeNet::storeWeights(const std::string &file) {
     net->store(file);
 }
