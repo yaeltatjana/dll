@@ -61,12 +61,11 @@ void perfInit(size_t loops, std::ofstream & file) {
 
 void perfDisplay(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
-    for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
+    auto net = getNet();
 
+    for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
         net->display();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -75,12 +74,11 @@ void perfDisplay(size_t loops, std::ofstream & file) {
 
 void perfDisplayPretty(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
-    for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
+    auto net = getNet();
 
+    for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
         net->display_pretty();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -125,7 +123,7 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
 
     for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
-       using dbn_t = dll::dbn_desc<
+        using dbn_t = dll::dbn_desc<
                dll::dbn_layers<
                dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
                dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
@@ -139,7 +137,6 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
                dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
                dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
 
-
         auto net = std::make_unique<dbn_t>();
         net->template layer_get<0>().init_layer(1, 28, 28, 12, 5, 5);
         net->template layer_get<1>().init_layer(12, 24, 24, 2, 2);
@@ -151,6 +148,7 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
         net->template layer_get<7>().init_layer(12, 4, 4, 2, 2);
         net->template layer_get<8>().init_layer(12 * 2 * 2, 32);
         net->template layer_get<9>().init_layer(32, 10);
+
         net->adam_beta1 = 0.997;
         net->adam_beta2 = 0.997;
         net->learning_rate = 0.1;

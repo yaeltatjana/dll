@@ -11,7 +11,6 @@ using dbn_lenet = dll::dbn_desc<
         dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
         dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
 
-
 std::unique_ptr<dbn_lenet> getNet() {
     auto net = std::make_unique<dbn_lenet>();
     net->template layer_get<0>().init_layer(1, 28, 28, 6, 5, 5);
@@ -25,7 +24,6 @@ std::unique_ptr<dbn_lenet> getNet() {
     net->learning_rate = 0.1;
    return net;
 }
-
 
 void perfInit(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
@@ -51,12 +49,11 @@ void perfInit(size_t loops, std::ofstream & file) {
 
 void perfDisplay(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
-    for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
+    auto net = getNet();
 
+    for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
         net->display();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -65,12 +62,11 @@ void perfDisplay(size_t loops, std::ofstream & file) {
 
 void perfDisplayPretty(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
-    for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
+    auto net = getNet();
 
+    for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
         net->display_pretty();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -86,7 +82,6 @@ void perfTrain(size_t loops, std::ofstream & file, size_t epochs) {
 
         time_point start = myclock::now();
         net->fine_tune(ds.train(), epochs);
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -99,7 +94,6 @@ void perfEvaluate(size_t loops, std::ofstream & file, size_t epochs) {
 
     for (size_t i = 0; i < loops; i++) {
         auto net = getNet();
-
         net->fine_tune(ds.train(), epochs);
 
         time_point start = myclock::now();
@@ -149,7 +143,7 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
 }
 
 int main(int, char**) {
-    std::ofstream file("../benchmark/benchmark_cpp_lenet.txt",  std::ofstream::out | std::ofstream::trunc);
+    std::ofstream file("../benchmark/benchmark_cpp_lenet2.txt",  std::ofstream::out | std::ofstream::trunc);
     file.clear();
 
    /* perfInit(10000, file);
@@ -157,13 +151,7 @@ int main(int, char**) {
     perfDisplayPretty(10000, file);
     perfTrain(50, file, 25);*/
     perfEvaluate(50, file, 25);
-    /*perfAll(50,file,25);
-    perfInit(100, file);
-    perfDisplay(100, file);
-    perfDisplayPretty(100, file);
-    perfTrain(2, file, 5);
-    perfEvaluate(2, file, 5);
-    perfAll(2,file,5);*/
+    /*perfAll(50,file,25);*/
 
     file.close();
     return 0;

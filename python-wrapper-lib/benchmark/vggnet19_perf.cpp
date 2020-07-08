@@ -111,12 +111,11 @@ void perfInit(size_t loops, std::ofstream & file) {
 
 void perfDisplay(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
-    for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
+    auto net = getNet();
 
+    for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
         net->display();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -125,12 +124,11 @@ void perfDisplay(size_t loops, std::ofstream & file) {
 
 void perfDisplayPretty(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
-    for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
+    auto net = getNet();
 
+    for (size_t i = 0; i < loops; i++) {
         time_point start = myclock::now();
         net->display_pretty();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -146,7 +144,6 @@ void perfTrain(size_t loops, std::ofstream & file, size_t epochs) {
 
         time_point start = myclock::now();
         net->fine_tune(ds.train(), epochs);
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -249,7 +246,7 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
 }
 
 int main(int, char**) {
-    std::ofstream file("../benchmark/benchmark_cpp_vggnet19.txt",  std::ofstream::out | std::ofstream::trunc);
+    std::ofstream file("../benchmark/benchmark_cpp_vggnet192.txt",  std::ofstream::out | std::ofstream::trunc);
     file.clear();
 
     perfInit(10000, file);
@@ -258,12 +255,6 @@ int main(int, char**) {
     perfTrain(10, file, 15);
     perfEvaluate(10, file, 15);
     perfAll(10,file,15);
-    /*perfInit(100, file);
-    perfDisplay(100, file);
-    perfDisplayPretty(100, file);
-    perfTrain(1, file, 2);
-    perfEvaluate(1, file, 2);
-    perfAll(1,file,2);*/
 
     file.close();
     return 0;

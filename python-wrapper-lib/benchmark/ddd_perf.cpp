@@ -40,11 +40,11 @@ void perfInit(size_t loops, std::ofstream & file) {
 
 void perfDisplay(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
+    auto net = getNet();
+
     for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
         time_point start = myclock::now();
         net->display();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -53,11 +53,11 @@ void perfDisplay(size_t loops, std::ofstream & file) {
 
 void perfDisplayPretty(size_t loops, std::ofstream & file) {
     std::vector<float> durations;
+    auto net = getNet();
+
     for (size_t i = 0; i < loops; i++) {
-        auto net = getNet();
         time_point start = myclock::now();
         net->display_pretty();
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -73,7 +73,6 @@ void perfTrain(size_t loops, std::ofstream & file, size_t epochs) {
 
         time_point start = myclock::now();
         net->fine_tune(ds.train(), epochs);
-
         time_point end = myclock::now();
         durations.push_back(std::chrono::duration_cast<resolution>(end - start).count());
     }
@@ -116,7 +115,6 @@ void perfAll(size_t loops, std::ofstream & file, size_t epochs) {
         net->template layer_get<0>().init_layer(28 * 28, 32);
         net->template layer_get<1>().init_layer(32, 16);
         net->template layer_get<2>().init_layer(16, 10);
-
         net->initial_momentum = 0.85;
 
         net->display();
@@ -139,12 +137,6 @@ int main(int, char**) {
     perfTrain(50, file, 25);
     perfEvaluate(50, file, 25);
     perfAll(50,file,25);
-    /*perfInit(100, file);
-    perfDisplay(100, file);
-    perfDisplayPretty(100, file);
-    perfTrain(2, file, 2);
-    perfEvaluate(2, file, 2);
-    perfAll(2,file,2);*/
 
     file.close();
     return 0;
