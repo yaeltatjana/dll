@@ -353,9 +353,15 @@ $(eval $(call add_executable,lenet_perf,python-wrapper-lib/benchmark/lenet_perf.
 $(eval $(call add_executable,alexnet_perf,python-wrapper-lib/benchmark/alexnet_perf.cpp))
 $(eval $(call add_executable,vggnet19_perf,python-wrapper-lib/benchmark/vggnet19_perf.cpp))
 
-wrapper_lib: release/lib/libdll_mnist_mylib.so
+# Compile files for test
+$(eval $(call auto_folder_compile,python-wrapper-lib/test))
+$(eval $(call add_executable,test_datasets,python-wrapper-lib/test/dataset_readers.cpp))
+$(eval $(call add_executable,test_networks,python-wrapper-lib/test/networks.cpp))
+
+#wrapper_lib: release/lib/libdll_mnist_mylib.so
 example_shared_lib: release/lib/libdll_mnist_mylib.so release/bin/mylib
 wrapper_perf: release/bin/dd_perf release/bin/ddd_perf release/bin/lenet_perf release/bin/alexnet_perf release/bin/vggnet19_perf
+wrapper_test: release/bin/test_datasets release/bin/test_networks
 
 # Build sets for workbench sources
 debug_workbench: debug/bin/dll_sgd_perf debug/bin/dll_conv_sgd_perf debug/bin/dll_imagenet_perf debug/bin/dll_sgd_debug debug/bin/dll_dae debug/bin/dll_rbm_dae debug/bin/dll_perf_paper debug/bin/dll_perf_paper_conv debug/bin/dll_perf_conv debug/bin/dll_conv_types debug/bin/dll_dyn_perf
