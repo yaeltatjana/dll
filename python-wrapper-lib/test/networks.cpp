@@ -127,7 +127,7 @@ void test_alexnet(size_t epochs) {
 }
 
 
-void test_vggnet19(size_t epochs) {
+void test_vggnet16(size_t epochs) {
     auto ds = dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {});
 
     using dbn_t = dll::dbn_desc<
@@ -201,7 +201,7 @@ int main(int argc, char *argv[]) {
         if(test.compare("ddd") == 0) test_ddd(5);
         if(test.compare("lenet") == 0) test_lenet(5);
         if(test.compare("alexnet") == 0) test_alexnet(5);
-        if(test.compare("vggnet19") == 0) test_vggnet19(5);
+        if(test.compare("vggnet16") == 0) test_vggnet16(5);
     }
 
     return 0;

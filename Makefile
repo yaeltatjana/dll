@@ -342,7 +342,7 @@ CPP_SRC_WRAPPER=$(wildcard python-wrapper-lib/*.cpp) $(wildcard python-wrapper-l
 $(eval $(call folder_compile,python-wrapper-lib, -fPIC)) # TODO: remove
 $(eval $(call folder_compile,python-wrapper-lib/networks, -fPIC))
 $(eval $(call folder_compile,python-wrapper-lib/datasets, -fPIC))
-$(eval $(call add_shared_library,libdll_mnist_mylib,$(CPP_SRC_WRAPPER)))
+$(eval $(call add_shared_library,libdll,$(CPP_SRC_WRAPPER)))
 $(eval $(call build_example,mylib))
 
 # Compile files for benchmark of wrapper
@@ -351,16 +351,16 @@ $(eval $(call add_executable,dd_perf,python-wrapper-lib/benchmark/dd_perf.cpp))
 $(eval $(call add_executable,ddd_perf,python-wrapper-lib/benchmark/ddd_perf.cpp))
 $(eval $(call add_executable,lenet_perf,python-wrapper-lib/benchmark/lenet_perf.cpp))
 $(eval $(call add_executable,alexnet_perf,python-wrapper-lib/benchmark/alexnet_perf.cpp))
-$(eval $(call add_executable,vggnet19_perf,python-wrapper-lib/benchmark/vggnet19_perf.cpp))
+$(eval $(call add_executable,vggnet16_perf,python-wrapper-lib/benchmark/vggnet16_perf.cpp))
 
 # Compile files for test
 $(eval $(call auto_folder_compile,python-wrapper-lib/test))
 $(eval $(call add_executable,test_datasets,python-wrapper-lib/test/dataset_readers.cpp))
 $(eval $(call add_executable,test_networks,python-wrapper-lib/test/networks.cpp))
 
-#wrapper_lib: release/lib/libdll_mnist_mylib.so
-example_shared_lib: release/lib/libdll_mnist_mylib.so release/bin/mylib
-wrapper_perf: release/bin/dd_perf release/bin/ddd_perf release/bin/lenet_perf release/bin/alexnet_perf release/bin/vggnet19_perf
+wrapper_lib: release/lib/libdll.so
+example_shared_lib: release/lib/libdll.so release/bin/mylib
+wrapper_perf: release/bin/dd_perf release/bin/ddd_perf release/bin/lenet_perf release/bin/alexnet_perf release/bin/vggnet16_perf
 wrapper_test: release/bin/test_datasets release/bin/test_networks
 
 # Build sets for workbench sources

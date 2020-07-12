@@ -1,6 +1,6 @@
 #!/bin/bash
 
-output_path="python-wrapper-lib/test/out/"
+output_path="python-wrapper-lib/test/out2/"
 
 output_file() {
   local out="${output_path}test_cpp_$1.txt"
@@ -24,7 +24,7 @@ for t in "${test_datasets[@]}"; do
 done
 
 # enter here which network test you want to launch
-test_networks=("dd" "ddd" "lenet" "alexnet" "vggnet19")
+test_networks=("vggnet16")  # "dd" "ddd" "lenet" "alexnet"
 for t in "${test_networks[@]}"; do
     ./release/bin/test_networks "${t}" > "$(output_file "${t}")"
 done

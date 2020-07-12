@@ -9,7 +9,7 @@
 #include "networks/DenseDenseDenseNet.h"
 #include "networks/LeNet.h"
 #include "networks/AlexNet.h"
-#include "networks/VGGNet19.h"
+#include "networks/VGGNet16.h"
 
 
 /**
@@ -143,9 +143,9 @@ void testAlexNet() {
     n.evaluate(r);
 }
 
-void testVGGNet19() {
+void testVGGNet16() {
     // TODO: change values, random ones actually
-    VGGNet19 n;
+    VGGNet16 n;
     n.setConvLayer(0, 1, 28, 28, 12, 5, 5);
     n.setConvLayer(1, 1, 28, 28, 12, 5, 5);
     n.setMPLayer(2, 12, 24, 24, 2, 2);
@@ -222,7 +222,7 @@ int main() {
 //    testMnist3DReader();
 //    testLeNet();
 //    testAlexNet();
-//    testVGGNet19();
+//    testVGGNet16();
     testTextReader();
     testLoadStore();
 

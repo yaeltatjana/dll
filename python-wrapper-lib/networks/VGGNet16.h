@@ -1,5 +1,5 @@
-#ifndef VGGNET19_H
-#define VGGNET19_H
+#ifndef VGGNET16_H
+#define VGGNET16_H
 
 #include "dll/network.hpp"
 #include "dll/neural/dyn_dense_layer.hpp"
@@ -8,7 +8,7 @@
 #include "../datasets/MnistReader.h"
 #include "../datasets/TextReader.h"
 
-using dbn_vggnet19 = dll::dbn_desc<
+using dbn_vggnet16 = dll::dbn_desc<
     dll::dbn_layers<
     dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
     dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
@@ -41,11 +41,11 @@ using dbn_vggnet19 = dll::dbn_desc<
 
 
 
-class VGGNet19 {
-    std::unique_ptr <dbn_vggnet19> net;
+class VGGNet16 {
+    std::unique_ptr <dbn_vggnet16> net;
 
 public:
-    VGGNet19();
+    VGGNet16();
 
     /**
      * Method to display the network
@@ -113,4 +113,4 @@ public:
 };
 
 
-#endif //VGGNET19_H
+#endif //VGGNET16_H
