@@ -338,8 +338,7 @@ $(eval $(call add_executable_set,dll_perf_conv,dll_perf_conv))
 $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
 
 # Create shared library for Cython wrapper
-CPP_SRC_WRAPPER=$(wildcard python-wrapper-lib/*.cpp) $(wildcard python-wrapper-lib/networks/*.cpp) $(wildcard python-wrapper-lib/datasets/*.cpp)
-$(eval $(call folder_compile,python-wrapper-lib, -fPIC)) # TODO: remove
+CPP_SRC_WRAPPER=$(wildcard python-wrapper-lib/networks/*.cpp) $(wildcard python-wrapper-lib/datasets/*.cpp)
 $(eval $(call folder_compile,python-wrapper-lib/networks, -fPIC))
 $(eval $(call folder_compile,python-wrapper-lib/datasets, -fPIC))
 $(eval $(call add_shared_library,libdll,$(CPP_SRC_WRAPPER)))
@@ -359,7 +358,6 @@ $(eval $(call add_executable,test_datasets,python-wrapper-lib/test/dataset_reade
 $(eval $(call add_executable,test_networks,python-wrapper-lib/test/networks.cpp))
 
 wrapper_lib: release/lib/libdll.so
-example_shared_lib: release/lib/libdll.so release/bin/mylib
 wrapper_perf: release/bin/dd_perf release/bin/ddd_perf release/bin/lenet_perf release/bin/alexnet_perf release/bin/vggnet16_perf
 wrapper_test: release/bin/test_datasets release/bin/test_networks
 
