@@ -12,15 +12,16 @@ void test_mnist() {
 
 void test_text() {
     // nothing interesting
-    auto imgs = dll::text::read_images < std::vector, std::vector < uint8_t > , false > ("test/text_db/images", 0);
+    auto imgs = dll::text::read_images < std::vector, std::vector<uint8_t>,
+    false > ("test/text_db/images", 0);
     auto lbls = dll::text::read_labels<std::vector, uint8_t>("test/text_db/labels", 0);
 }
 
 int main(int argc, char *argv[]) {
     for (int i = 0; i < argc; ++i) {
         std::string test = argv[i];
-        if(test.compare("mnist") == 0) test_mnist();
-        if(test.compare("text") == 0) test_text();
+        if (test.compare("mnist") == 0) test_mnist();
+        if (test.compare("text") == 0) test_text();
     }
 
     return 0;

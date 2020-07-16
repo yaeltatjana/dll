@@ -11,9 +11,9 @@ MnistDataset::MnistDataset(mnist::MNIST_dataset <std::vector, std::vector<uint8_
 
 MnistReader::MnistReader() : dataset(dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {})) {}
 
-MnistDataset &MnistReader::readDataset() {
+MnistDataset MnistReader::readDataset() {
     static MnistDataset ds(mnist::read_dataset());
-    return ds;
+    return mnist::read_dataset();
 }
 
 void MnistReader::display() {

@@ -9,16 +9,16 @@ void test_dd(size_t epochs) {
     auto ds = dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {});
 
     using dd = dll::dbn_desc<dll::dbn_layers <
-    dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-    dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-    dll::updater <dll::updater_type::MOMENTUM>,
-    dll::trainer <dll::sgd_trainer>,
-    dll::shuffle,
-    dll::batch_size<100>>
-    ::dbn_t;
+                             dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU>>::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::SOFTMAX >> ::layer_t >,
+            dll::updater < dll::updater_type::MOMENTUM >,
+            dll::trainer < dll::sgd_trainer >,
+            dll::shuffle,
+            dll::batch_size < 100 >>
+                                  ::dbn_t;
 
     auto net = std::make_unique<dd>();
-    net->template layer_get<0>().init_layer(28*28, 16);
+    net->template layer_get<0>().init_layer(28 * 28, 16);
     net->template layer_get<1>().init_layer(16, 10);
     net->initial_momentum = 0.85;
 
@@ -33,15 +33,15 @@ void test_ddd(size_t epochs) {
     auto ds = dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {});
 
     using dbn = dll::dbn_desc<
-        dll::dbn_layers <
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-        dll::updater <dll::updater_type::MOMENTUM>,
-        dll::trainer <dll::sgd_trainer>,
-        dll::shuffle,
-        dll::batch_size<100>>
-        ::dbn_t;
+            dll::dbn_layers <
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU>>::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::SOFTMAX >> ::layer_t >,
+            dll::updater < dll::updater_type::MOMENTUM >,
+            dll::trainer < dll::sgd_trainer >,
+            dll::shuffle,
+            dll::batch_size < 100 >>
+                                  ::dbn_t;
     auto net = std::make_unique<dbn>();
     net->template layer_get<0>().init_layer(28 * 28, 32);
     net->template layer_get<1>().init_layer(32, 16);
@@ -59,14 +59,15 @@ void test_lenet(size_t epochs) {
     auto ds = dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {});
 
     using dbn_t = dll::dbn_desc<
-        dll::dbn_layers<
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::TANH>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::TANH>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::TANH>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-        dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
+            dll::dbn_layers <
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::TANH>>::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::TANH >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::TANH >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::SOFTMAX >> ::layer_t >,
+            dll::trainer < dll::sgd_trainer >, dll::updater < dll::updater_type::NADAM >, dll::batch_size <
+                                                                                          100 >> ::dbn_t;
 
 
     auto net = std::make_unique<dbn_t>();
@@ -91,18 +92,19 @@ void test_alexnet(size_t epochs) {
     auto ds = dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {});
 
     using dbn_t = dll::dbn_desc<
-           dll::dbn_layers<
-           dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-           dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-           dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-           dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-           dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-           dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-           dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-           dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
-           dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-           dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-           dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
+            dll::dbn_layers <
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU>>::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::SOFTMAX >> ::layer_t >,
+            dll::trainer < dll::sgd_trainer >, dll::updater < dll::updater_type::NADAM >, dll::batch_size <
+                                                                                          100 >> ::dbn_t;
 
     auto net = std::make_unique<dbn_t>();
     net->template layer_get<0>().init_layer(1, 28, 28, 12, 5, 5);
@@ -131,35 +133,36 @@ void test_vggnet16(size_t epochs) {
     auto ds = dll::make_mnist_dataset(dll::batch_size < 100 > {}, dll::scale_pre < 255 > {});
 
     using dbn_t = dll::dbn_desc<
-        dll::dbn_layers<
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+            dll::dbn_layers <
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU>>::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
 
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
 
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
 
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
 
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_conv_layer_desc<dll::activation<dll::function::RELU>>::layer_t,
-        dll::dyn_mp_2d_layer_desc<dll::weight_type<float>>::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_conv_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_mp_2d_layer_desc < dll::weight_type < float >> ::layer_t,
 
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU >> ::layer_t,
+            dll::dyn_dense_layer_desc < dll::activation < dll::function::SOFTMAX >> ::layer_t >,
 
-        dll::trainer<dll::sgd_trainer>, dll::updater<dll::updater_type::NADAM>, dll::batch_size<100>>::dbn_t;
+            dll::trainer < dll::sgd_trainer >, dll::updater < dll::updater_type::NADAM >, dll::batch_size <
+                                                                                          100 >> ::dbn_t;
 
     auto net = std::make_unique<dbn_t>();
     net->template layer_get<0>().init_layer(1, 28, 28, 12, 5, 5);
@@ -197,11 +200,11 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < argc; ++i) {
         std::string test = argv[i];
 
-        if(test.compare("dd") == 0) test_dd(5);
-        if(test.compare("ddd") == 0) test_ddd(5);
-        if(test.compare("lenet") == 0) test_lenet(5);
-        if(test.compare("alexnet") == 0) test_alexnet(5);
-        if(test.compare("vggnet16") == 0) test_vggnet16(5);
+        if (test.compare("dd") == 0) test_dd(5);
+        if (test.compare("ddd") == 0) test_ddd(5);
+        if (test.compare("lenet") == 0) test_lenet(5);
+        if (test.compare("alexnet") == 0) test_alexnet(5);
+        if (test.compare("vggnet16") == 0) test_vggnet16(5);
     }
 
     return 0;

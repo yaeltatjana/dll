@@ -7,15 +7,18 @@
 #include "../datasets/MnistReader.h"
 #include "../datasets/TextReader.h"
 
-
+/**
+ * Type of network
+ */
 using dbn_2dense = dll::dbn_desc<dll::dbn_layers <
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-        dll::updater <dll::updater_type::MOMENTUM>,
-        dll::trainer <dll::sgd_trainer>,
-        dll::shuffle,
-        dll::batch_size<100>>
-        ::dbn_t;
+                                 dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU>>::layer_t,
+dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>
+::layer_t>,
+dll::updater <dll::updater_type::MOMENTUM>,
+dll::trainer <dll::sgd_trainer>,
+dll::shuffle,
+dll::batch_size<100>>
+::dbn_t;
 
 
 /**
@@ -25,10 +28,7 @@ using dbn_2dense = dll::dbn_desc<dll::dbn_layers <
  * Batch size: 100
  */
 class DenseDenseNet {
-    /**
-     * Pointer on the network based on 2 dense layers
-     */
-    std::unique_ptr <dbn_2dense> net;
+    std::unique_ptr <dbn_2dense> net;   ///< The network
 
 public:
     /**
@@ -62,7 +62,6 @@ public:
      * @param m
      */
     void setInitialMomentum(double m);
-    // void setRmspropDecay(double d);
 
     /**
      * Method to display the network

@@ -18,7 +18,7 @@ ifneq (,$(findstring clang,$(CXX)))
 CXX_FLAGS += -Wno-documentation
 endif
 
-#RELEASE_FLAGS += -fno-rtti
+RELEASE_FLAGS += -fno-rtti
 
 CXX_FLAGS += -Ietl/lib/include -Ietl/include/ -Imnist/include/ -Icifar-10/include/ -ICatch/include -Inice_svm/include
 LD_FLAGS += -lpthread
@@ -337,14 +337,13 @@ $(eval $(call add_executable_set,dll_perf_paper_conv,dll_perf_paper_conv))
 $(eval $(call add_executable_set,dll_perf_conv,dll_perf_conv))
 $(eval $(call add_executable_set,dll_conv_types,dll_conv_types))
 
-# Create shared library for Cython wrapper
+# Create shared library for Python wrapper
 CPP_SRC_WRAPPER=$(wildcard python-wrapper-lib/networks/*.cpp) $(wildcard python-wrapper-lib/datasets/*.cpp)
-$(eval $(call folder_compile,python-wrapper-lib/networks, -fPIC))
-$(eval $(call folder_compile,python-wrapper-lib/datasets, -fPIC))
+$(eval $(call auto_folder_compile,python-wrapper-lib/networks, -fPIC))
+$(eval $(call auto_folder_compile,python-wrapper-lib/datasets, -fPIC))
 $(eval $(call add_shared_library,libdll,$(CPP_SRC_WRAPPER)))
-$(eval $(call build_example,mylib))
 
-# Compile files for benchmark of wrapper
+# Compile and link files for wrapper's benchmark
 $(eval $(call auto_folder_compile,python-wrapper-lib/benchmark))
 $(eval $(call add_executable,dd_perf,python-wrapper-lib/benchmark/dd_perf.cpp))
 $(eval $(call add_executable,ddd_perf,python-wrapper-lib/benchmark/ddd_perf.cpp))
@@ -352,7 +351,7 @@ $(eval $(call add_executable,lenet_perf,python-wrapper-lib/benchmark/lenet_perf.
 $(eval $(call add_executable,alexnet_perf,python-wrapper-lib/benchmark/alexnet_perf.cpp))
 $(eval $(call add_executable,vggnet16_perf,python-wrapper-lib/benchmark/vggnet16_perf.cpp))
 
-# Compile files for test
+# Compile files for functional tests of the wrapper
 $(eval $(call auto_folder_compile,python-wrapper-lib/test))
 $(eval $(call add_executable,test_datasets,python-wrapper-lib/test/dataset_readers.cpp))
 $(eval $(call add_executable,test_networks,python-wrapper-lib/test/networks.cpp))

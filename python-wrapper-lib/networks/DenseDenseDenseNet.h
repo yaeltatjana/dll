@@ -8,16 +8,21 @@
 
 #include <memory>
 
+/**
+ * Type of network
+ */
 using dbn_3dense = dll::dbn_desc<
         dll::dbn_layers <
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>::layer_t,
-        dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>::layer_t>,
-        dll::updater <dll::updater_type::MOMENTUM>,
-        dll::trainer <dll::sgd_trainer>,
-        dll::shuffle,
-        dll::batch_size<100>>
-        ::dbn_t;
+        dll::dyn_dense_layer_desc < dll::activation < dll::function::RELU>>::layer_t,
+dll::dyn_dense_layer_desc<dll::activation < dll::function::RELU>>
+::layer_t,
+dll::dyn_dense_layer_desc<dll::activation < dll::function::SOFTMAX>>
+::layer_t>,
+dll::updater <dll::updater_type::MOMENTUM>,
+dll::trainer <dll::sgd_trainer>,
+dll::shuffle,
+dll::batch_size<100>>
+::dbn_t;
 
 /**
  * Network with 3 Dense layers : relu -> relu -> softmax
@@ -26,7 +31,7 @@ using dbn_3dense = dll::dbn_desc<
  * Batch size: 100
  */
 class DenseDenseDenseNet {
-    std::unique_ptr <dbn_3dense> net;
+    std::unique_ptr <dbn_3dense> net;   ///< The network
 
 public:
     /**

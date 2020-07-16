@@ -1,7 +1,10 @@
 #!/bin/bash
 
-output_path="python-wrapper-lib/test/out2/"
+# script to launch the functional tests
 
+output_path="python-wrapper-lib/test/out/"
+
+# function to create the output file
 output_file() {
   local out="${output_path}test_cpp_$1.txt"
   echo "${out}"
@@ -24,7 +27,7 @@ for t in "${test_datasets[@]}"; do
 done
 
 # enter here which network test you want to launch
-test_networks=("vggnet16")  # "dd" "ddd" "lenet" "alexnet"
+test_networks=("dd" "ddd" "lenet" "alexnet" "vggnet16")
 for t in "${test_networks[@]}"; do
     ./release/bin/test_networks "${t}" > "$(output_file "${t}")"
 done

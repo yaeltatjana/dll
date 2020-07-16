@@ -2,7 +2,6 @@
 #define MNISTREADER_H
 
 #include "../dataset_types.h"
-// #include "dll/datasets.hpp"
 
 /**
  * Struct used to wrap the samples of the MNIST Dataset
@@ -36,7 +35,7 @@ public:
      * Read the values contained in the dataset
      * @return Dataset split into train/test images and labels
      */
-    MnistDataset &readDataset();
+    MnistDataset readDataset();
 
     /**
      * Display the dataset
